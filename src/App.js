@@ -4,18 +4,15 @@ import './App.css';
 
 function App() {
 
-    const output = [];
-    const courses = new Courses();
-    courses.items.map(item => {
-        output.push(<div>{item.name}</div>);
-    });
-
     return (
-        <div className="App">
-            <header className="App-header">
-                {output}
-
-            </header>
+        <div className="app-container">
+            <figure>
+                <img className="logo" src="jida.png"/>
+                <figcaption>
+                    <h4>Prueba técnica de javascript
+                        <small>¡&Eacute;xito y Good Coding!</small></h4>
+                </figcaption>
+            </figure>
         </div>
     );
 }
