@@ -4,30 +4,25 @@ export function Students() {
         {
             'name': 'Julio Rodriguez', 'mail': 'julio@emailna.co', 'age': '30',
             'courses': [
-                'javascript 1',
-                'javascrip 2'
+                1, 2
+
             ]
         },
         {
             'name': 'Felix Tovar', 'mail': 'felix@emailna.co', 'age': '30',
             'courses': [
-                'javascript 1',
-                'javascript 2'
+                1, 4
             ]
         },
         {
             'name': 'Rosmy Rodríguez', 'mail': 'rosmy@emailna.co', 'age': '30',
             'courses': [
-                'Design Patterns',
-                'Advanced PHP Topics'
+                2, 5
             ]
         },
         {
             'name': 'Jean Contreras', 'mail': 'jean@emailna.co', 'age': '30',
-            'courses': [
-                'UX experts',
-                'noSQL'
-            ]
+            'courses': [4, 5]
         }
 
     ];

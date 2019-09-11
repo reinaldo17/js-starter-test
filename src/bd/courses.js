@@ -7,7 +7,6 @@ export function Courses() {
         {"id": 3, "name": "NoSQL", "days": ["Monday", "Friday"]},
         {"id": 4, "name": "UX Experts", "days": ["Tuesday", "Friday"]},
         {"id": 5, "name": "Design patterns", "days": ["Saturday"]},
-        {"id": 5, "name": "Design patterns", "days": ["Saturday"]},
     ];
 
     Object.defineProperty(this, 'items', {'get': () => courses});

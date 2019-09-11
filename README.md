@@ -14,9 +14,9 @@ actividades a realizar:
  
 ### Actividades
   
-- Se deben poder listar los cursos
-- Se deben poder agregar nuevos cursos y modificar o elimianar los existentes.
-- Los cursos nuevos registrados deben tener al menos un dia a la semana de horario. 
+- Se deben poder listar los cursos.
+- Se deben poder agregar nuevos cursos y modificar o eliminar los existentes.
+- Los cursos nuevos registrados deben tener al menos un día a la semana de horario. 
 - Un usuario debe poder registrarse y seleccionar los cursos en los cuales desea participar
 - El usuario registrado debe poder modificar sus datos.
 - Un usuario no puede seleccionar dos cursos que tengan el mismo dia como horario.
@@ -29,4 +29,11 @@ Deben usarse estos mismos objetos para agregar la lógica del manejo de datos co
 - Debes realizar un **Fork** de este repositorio y dejarlo disponible en github cuando finalices.  
 - Este proyecto a sido creado por medio del _react-create-app_ por tanto, para arrancar
  solo debe realizarse un `npm install` y posteriormente ejecutar `npm start`.
+
+---
+
+Siguenos en nuestras redes
+
+[Instagram](https://www.instagram.com/jida.desarrollos)
+[Facebook](https://www.facebook.com/jidadesarrollos/)
 
