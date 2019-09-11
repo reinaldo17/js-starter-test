@@ -29,6 +29,10 @@ Deben usarse estos mismos objetos para agregar la lógica del manejo de datos co
 - Debes realizar un **Fork** de este repositorio y dejarlo disponible en github cuando finalices.  
 - Este proyecto a sido creado por medio del _react-create-app_ por tanto, para arrancar
  solo debe realizarse un `npm install` y posteriormente ejecutar `npm start`.
+- La prueba es libre y no está detallada en mayor cantidad de manera intencional, con la finalidad
+de ver la proactividad del desarrollador y su capacidad de evaluar features o detalles que puedan sumar.
+
+
 
 ---
 
