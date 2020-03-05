@@ -32,6 +32,8 @@ Deben usarse estos mismos objetos para agregar la lógica del manejo de datos co
 - La prueba es libre y no está detallada en mayor cantidad de manera intencional, con la finalidad
 de ver la proactividad del desarrollador y su capacidad de evaluar features o detalles que puedan sumar.
 
+NOTA: Se plantea el problema completo, el desarrollador debe hacer lo que considere viable, no necesariamente debe culminarse la prueba.
+
 
 
 ---
