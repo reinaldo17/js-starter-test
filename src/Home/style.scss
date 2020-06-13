@@ -1,0 +1,72 @@
+.Home{
+    .title{
+        color: #c33;
+        font-family: 'Oswald', sans-serif;
+        text-align: left;
+        margin-top: 40px;
+        margin-left: 40px;
+        font-size: 26px;
+    }
+    .buttonAdd{
+        position: absolute;
+        background: #d14545;
+        color: white;
+        border-radius: 20px;
+        top: 45px;
+        left: 200px;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+    }
+    .signOff{
+        position: absolute;
+        right: 40px;
+        top: 45px;
+        color: #9c9a9a;
+        font-weight: 500;
+        font-size: 15px;
+        cursor: pointer;
+    }
+    .ContainerCourses{
+        margin-top: 25px;
+
+    }
+    .titleCouses{
+        color: white;
+        background: #cc3333e8;
+        height: 40px;
+    }
+    .TitleItem{
+        display: inline-block;
+        width: 35%;
+        margin-top: 5px;
+    }
+    .TitleItemIcon{
+        display: inline-block;
+        width: 15%;
+        margin-top: 5px;
+    }
+    .CourseItem{
+        border-bottom: solid 1px #9c9a9a94;
+        .item{
+            display: inline-block;
+            width: 35%;
+            margin-top: 5px;
+            font-size: 16px;
+
+        }
+        .itemIcon{
+            display: inline-block;
+            width: 15%;
+            margin-top: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .iconItem{
+            width: 40px;
+            margin-bottom: -10px;
+
+
+        }
+    }       
+}

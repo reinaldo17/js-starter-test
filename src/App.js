@@ -1,20 +1,25 @@
-import React from 'react';
-import Courses from "./bd/courses";
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
+import Home from "./Home"
 
-function App() {
 
-    return (
-        <div className="app-container">
-            <figure>
-                <img className="logo" src="jida.png"/>
-                <figcaption>
-                    <h4>Prueba técnica de javascript
-                        <small>¡&Eacute;xito y Good Coding!</small></h4>
-                </figcaption>
-            </figure>
-        </div>
-    );
-}
-
-export default App;
+class App extends Component {
+    render() {
+      return (
+        <BrowserRouter>
+          <div>
+            {/* <Redirect
+              from="/"
+              to="/home" /> */}
+            <Switch>
+              <Route
+                component={Home} />
+             {/* <Route component={PageError} /> */}
+            </Switch>
+          </div>
+        </BrowserRouter>
+      );
+    }
+  }
+  export default App
