@@ -5,8 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import DataProvider from "./../DataProvider";
 import CreateCourse from "./../Modals/CreateCourse"
-
-
+import EditCourse from "./../Modals/EditCourse"
 
 class Home extends Component {
     constructor(props){
@@ -15,6 +14,7 @@ class Home extends Component {
           courses : null,  
           openCreateCourse: false,
           openEditCourse:false, 
+          idCourse: null,
         }
       }
 
@@ -34,12 +34,34 @@ class Home extends Component {
         }
     }
 
-    addCourse = () =>{
+    handlerCreateModal = () =>{
         this.setState({
             openCreateCourse: !this.state.openCreateCourse
         })
     }
     
+    postCourse = (name,days) =>{    
+        DataProvider.CreateCourse([{id:this.state.courses.length+1,name:name,days:days}].concat(this.state.courses)) 
+        this.setState({
+            courses: [{id:this.state.courses.length+1,name:name,days:days}].concat(this.state.courses)
+        })
+        
+    }
+
+    handlerEditModal = (courseId) =>{
+        this.setState({
+            openEditCourse: !this.state.openEditCourse,
+            idCourse: courseId,
+        })
+    }
+    editCourse = (index,id, name, days) =>{  
+        var coursesEdit = this.state.courses;
+        var removed = coursesEdit.splice(index,1,{id:id,name:name,days:days});
+        DataProvider.updateCourse(coursesEdit)
+           this.setState({
+               courses: coursesEdit
+           })
+    }
 
     render () {
         return (
@@ -48,8 +70,8 @@ class Home extends Component {
                 <Row>
                   <Col sm={12} xs={12} md={12}>
                     <div className="title">List of Courses</div>  
-                    <div className="buttonAdd" onClick={()=>this.addCourse()}>+</div>
-                    <CreateCourse handlerModal={this.state.openCreateCourse} closeModal={this.addCourse.bind(this)}></CreateCourse> 
+                    <div className="buttonAdd" onClick={()=>this.handlerCreateModal()}>+</div>
+                    <CreateCourse handlerModal={this.state.openCreateCourse} closeModal={this.handlerCreateModal.bind(this)} postCourse={this.postCourse.bind(this)}></CreateCourse> 
                     <div className="signOff">Sign Out</div> 
                     <div className="ContainerCourses"> 
                         <div className="titleCouses">
@@ -63,9 +85,12 @@ class Home extends Component {
                         this.state.courses.map((course,index) =>{
                             return(
                                 <div className="CourseItem" key={course.id}>
+                                    {this.state.idCourse===course.id?
+                                        <EditCourse handlerModal={this.state.openEditCourse}  dataCourse={course} index={index} closeModal={this.handlerEditModal.bind(this)} editCourse={this.editCourse.bind(this)}></EditCourse>
+                                    :null} 
                                     <div className="item"> <p className="text">{course.name}</p></div> 
-                                    <div className="item"><p className="text">{course.name}</p></div> 
-                                    <div className="itemIcon"><img className="iconItem" src="edit.png" alt=""></img> </div> 
+                                    <div className="item"><p className="text">{course.days}</p></div> 
+                                    <div className="itemIcon"><img className="iconItem" src="edit.png" alt=""  onClick={()=>this.handlerEditModal(course.id)}></img> </div> 
                                     <div className="itemIcon"><img className="iconItem" src="delete.png" onClick={()=>this.deleteCourse(index)} alt=""></img> </div> 
                                 </div> 
                             )}

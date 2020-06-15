@@ -7,13 +7,48 @@ class CreateCourse extends Component {
     constructor(props){
         super(props);
         this.state={
-          closeModal : false,   
+          daysArray: [] ,   
         }
       }
     saveCourse = ()=>{
-      console.log(this.refs.daysCourse.value)
-      console.log(this.refs.daysCourse.id)
       
+      if(this.refs.Monday.checked){
+        this.setState({
+          daysArray: this.state.daysArray.push("Monday")
+        })
+      }
+      if(this.refs.Tuesday.checked){
+        this.setState({
+          daysArray: this.state.daysArray.push("Tuesday")
+        })
+      }
+      if(this.refs.Wednesday.checked){
+        this.setState({
+          daysArray: this.state.daysArray.push("Wednesday")
+        })
+      }
+      if(this.refs.Thursday.checked){
+        this.setState({
+          daysArray: this.state.daysArray.push("Thursday")
+        })
+      }
+      if(this.refs.Friday.checked){
+        this.setState({
+          daysArray: this.state.daysArray.push("Friday")
+        })
+      }
+      if(this.refs.nameCourse.value==="" || this.state.daysArray.length===0){
+        alert("Enter course name and at least select a day")
+        this.setState({
+          daysArray:[],
+        })
+      }else{
+        this.props.postCourse(this.refs.nameCourse.value,this.state.daysArray);
+        this.setState({
+          daysArray:[],
+        })
+        this.props.closeModal()
+      }
     }
       
       render () {
@@ -26,12 +61,15 @@ class CreateCourse extends Component {
                 <Form>
                   <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" placeholder="" ref="nameCourse" />
+                    <Form.Control type="text" placeholder="" ref="nameCourse" required/>
                   </Form.Group>
-                <Form.Group controlId="exampleForm.ControlSelect2">
-                  <Form.Label>Example multiple select</Form.Label>
-                  <Form.Check inline label="1" type={"checkbox"} ref="daysCourse" id="hola" />
-
+                <Form.Group controlId="exampleForm.ControlSelect2" required>
+                  <Form.Label className="dayLabel">Days</Form.Label>
+                  <Form.Check inline label="Monday" type={"checkbox"} ref="Monday"/>
+                  <Form.Check inline label="Tuesday" type={"checkbox"} ref="Tuesday"/>
+                  <Form.Check inline label="Wednesday" type={"checkbox"} ref="Wednesday"/>
+                  <Form.Check inline label="Thursday" type={"checkbox"} ref="Thursday"/>
+                  <Form.Check inline label="Friday" type={"checkbox"} ref="Friday"/>
                 </Form.Group>
                 </Form>
               </Modal.Body>
