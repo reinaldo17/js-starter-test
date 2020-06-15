@@ -26,16 +26,21 @@ class Login extends Component {
           if(this.refs.emailUser.value==="" || this.refs.passWordUser.value===""){
               alert("Enter Email and Password")
           }else{
+              let noLog= true;
             DataProvider.getUsers().map((user,index) =>{
                 if(user.mail===this.refs.emailUser.value && user.pass===this.refs.passWordUser.value){
-                    alert("usuario logueado con exito")
-                    return
+                    DataProvider.userLoggedIn(user)
+                    noLog= false;
+                    window.location.replace('/home')
                 }
-                if(index+1===DataProvider.getUsers().length ){
+                if(index+1===DataProvider.getUsers().length && noLog){
                     alert("Incorrect or Unregistered User")                    
                 }
             })
           }
+      }
+      openRegister = () =>{
+        window.location.replace('/register')
       }
 
     render () {
@@ -46,7 +51,7 @@ class Login extends Component {
                   <div className="containerLogo">
                     <img className="logo" src="jida.png" alt=""/>
                   </div>
-                  <div className="register">
+                  <div onClick={()=> this.openRegister()} className="register">
                     Register
                   </div>
                   <Form>

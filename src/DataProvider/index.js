@@ -44,6 +44,19 @@ const DataProvider = {
         return (JSON.parse(localStorage.getItem("Users")))
      
     },
+    //save the user who is currently logged in
+    userLoggedIn : (user) =>{
+        localStorage.setItem('userLogged', JSON.stringify(user))
+    },
+    //Get the user logged
+    getUserLogget : () =>{
+        return (JSON.parse(localStorage.getItem("userLogged")))  
+    },
+    //save the user who is currently logged in
+    logOut : () =>{
+        localStorage.removeItem('userLogged')
+    },
+
 
 }
 

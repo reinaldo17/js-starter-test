@@ -1,5 +1,4 @@
 export function Students() {
-    'use strict';
     let items = [
         {
             'name': 'Julio Rodriguez', 'mail': 'julio@emailna.co', 'age': '30','isAdmin': false,

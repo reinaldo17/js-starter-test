@@ -1,5 +1,4 @@
 export function Courses() {
-    'use strict';
 
     let courses = [
         {"id": 1, "name": "Javascript", "days": ["Monday", "Wednesday"]},

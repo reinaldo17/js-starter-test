@@ -62,17 +62,22 @@ class Home extends Component {
                courses: coursesEdit
            })
     }
+    comeBack = ()=>{
+        DataProvider.logOut()
+        window.location.replace('/')
+      }
 
     render () {
         return (
             <div className="Home">
+                {DataProvider.getUserLogget()!=null?
                 <Container>
                 <Row>
                   <Col sm={12} xs={12} md={12}>
                     <div className="title">List of Courses</div>  
                     <div className="buttonAdd" onClick={()=>this.handlerCreateModal()}>+</div>
                     <CreateCourse handlerModal={this.state.openCreateCourse} closeModal={this.handlerCreateModal.bind(this)} postCourse={this.postCourse.bind(this)}></CreateCourse> 
-                    <div className="signOff">Sign Out</div> 
+                    <div className="signOff" onClick={()=> this.comeBack()}>Sign Out</div> 
                     <div className="ContainerCourses"> 
                         <div className="titleCouses">
                             <div className="TitleItem">Name</div> 
@@ -102,6 +107,7 @@ class Home extends Component {
                   </Col>
                 </Row>
              </Container>
+            :null}
             </div>
         );
 
