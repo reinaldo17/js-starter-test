@@ -7,10 +7,12 @@ const DataProvider = {
 
     //Initialize the courses using the data stored in the database
     initializeCourses : () =>{
-        const aux = {};
-        Courses.bind(aux)();
-        localStorage.setItem('Courses', JSON.stringify(aux.items))
-
+        if(localStorage.getItem("bdLoadedCourse")===null){
+            const aux = {};
+            Courses.bind(aux)();
+            localStorage.setItem('Courses', JSON.stringify(aux.items))
+            localStorage.setItem('bdLoadedCourse', true)
+        }
     },
     //Get the courses saved in the localstorage
     getCourses : () =>{
@@ -30,14 +32,16 @@ const DataProvider = {
         localStorage.setItem('Courses', JSON.stringify(data))
     },
 
-//Provider de Users
+//Provider de Users:
 
     //Initialize the list of Students using the data stored in the database
     initializeUsers : () =>{
+        if(localStorage.getItem("bdLoadedUsers")===null){
         const aux = {};
         Users.bind(aux)();
         localStorage.setItem('Users', JSON.stringify(aux.items))
-
+        localStorage.setItem('bdLoadedUsers', true)
+        }
     },
     //Get the courses saved in the localstorage
     getUsers : () =>{
@@ -48,6 +52,10 @@ const DataProvider = {
     userLoggedIn : (user) =>{
         localStorage.setItem('userLogged', JSON.stringify(user))
     },
+     //save the user who is currently logged in
+     addCourseUser : (user) =>{
+        localStorage.setItem('userLogged', JSON.stringify(user))
+    },
     //Get the user logged
     getUserLogget : () =>{
         return (JSON.parse(localStorage.getItem("userLogged")))  
@@ -55,6 +63,14 @@ const DataProvider = {
     //save the user who is currently logged in
     logOut : () =>{
         localStorage.removeItem('userLogged')
+    },
+    //Update the localstorage with the UPDATED course
+    updateUser: (data) => {
+        localStorage.setItem('Users', JSON.stringify(data))
+    },
+    //Update the localstorage with the ADDED course
+    CreateUser: (data) => {
+        localStorage.setItem('Users', JSON.stringify(data))
     },
 
 

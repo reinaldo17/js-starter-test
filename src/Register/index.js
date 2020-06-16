@@ -12,32 +12,29 @@ class Register extends Component {
     constructor(props){
         super(props);
         this.state={
-            
-        }
       }
-
+    }
       componentDidMount (){
-          DataProvider.initializeUsers();
-          
+        console.log(DataProvider.getUsers())
 
       }
 
-      login = ()=>{
-          if(this.refs.emailUser.value==="" || this.refs.passWordUser.value===""){
-              alert("Enter Email and Password")
+      register = ()=>{
+          if(this.refs.nameUser.value==="" ||this.refs.emailUser.value==="" || this.refs.passWordUser.value==="" || this.refs.ageUser.value===""){
+              alert("All fields are REQUIRED");
           }else{
-              let noLog= true;
-            DataProvider.getUsers().map((user,index) =>{
-                console.log(user)
-                if(user.mail===this.refs.emailUser.value && user.pass===this.refs.passWordUser.value){
-                    window.location.replace('/home')
-                    noLog= false;
-                }
-                if(index+1===DataProvider.getUsers().length && noLog){
-                    alert("Incorrect or Unregistered User")                    
-                }
-            })
+            let aux= DataProvider.getUsers()
+            DataProvider.CreateUser([{name:this.refs.nameUser.value,
+                                      mail:this.refs.emailUser.value,
+                                      age:this.refs.ageUser.value,
+                                      pass:this.refs.passWordUser.value,   
+                                      isAdmin:false,
+                                      courses:[]
+                                      }].concat(aux)) 
+
           }
+          alert("Registered user successfully");
+          window.location.replace('/')
       }
       comeBack = ()=>{
         window.location.replace('/')
@@ -52,6 +49,10 @@ class Register extends Component {
                     <img className="logo" src="jida.png" alt=""/>
                   </div>
                   <Form>
+                  <Form.Group controlId="exampleForm.ControlInput4">
+                    <Form.Label>Name</Form.Label>
+                  <Form.Control type="email" placeholder="" ref="nameUser" required/>
+                  </Form.Group>
                   <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email" placeholder="" ref="emailUser" required/>

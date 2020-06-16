@@ -4,8 +4,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import DataProvider from "./../DataProvider";
-import CreateCourse from "./../Modals/CreateCourse"
-import EditCourse from "./../Modals/EditCourse"
+import CreateCourse from "./../Modals/CreateCourse";
+import EditCourse from "./../Modals/EditCourse";
+import Switch from "./../Switch";
 
 class Home extends Component {
     constructor(props){
@@ -19,6 +20,7 @@ class Home extends Component {
       }
 
     componentDidMount (){
+        console.log(DataProvider.getCourses())
         DataProvider.initializeCourses();
         this.setState({
             courses: DataProvider.getCourses(),
@@ -74,16 +76,26 @@ class Home extends Component {
                 <Container>
                 <Row>
                   <Col sm={12} xs={12} md={12}>
-                    <div className="title">List of Courses</div>  
-                    <div className="buttonAdd" onClick={()=>this.handlerCreateModal()}>+</div>
+                    <div className="title">List of Courses</div> 
+                    {DataProvider.getUserLogget().isAdmin===true ? 
+                        <div className="buttonAdd" onClick={()=>this.handlerCreateModal()}>+</div>
+                    :
+                        <div className="buttonProfile" onClick={()=>this.handlerCreateModal()}>Profile</div>
+                    }
                     <CreateCourse handlerModal={this.state.openCreateCourse} closeModal={this.handlerCreateModal.bind(this)} postCourse={this.postCourse.bind(this)}></CreateCourse> 
                     <div className="signOff" onClick={()=> this.comeBack()}>Sign Out</div> 
                     <div className="ContainerCourses"> 
                         <div className="titleCouses">
                             <div className="TitleItem">Name</div> 
                             <div className="TitleItem">Days</div> 
-                            <div className="TitleItemIcon">Edit</div> 
-                            <div className="TitleItemIcon">Delete</div> 
+                            {DataProvider.getUserLogget().isAdmin===true ? 
+                                <div>
+                                    <div className="TitleItemIcon">Edit</div> 
+                                    <div className="TitleItemIcon">Delete</div> 
+                                </div>
+                            :
+                            <div className="TitleReserved">Reserve</div> 
+                            }
                         </div> 
                         {
                         this.state.courses != null ?
@@ -94,9 +106,17 @@ class Home extends Component {
                                         <EditCourse handlerModal={this.state.openEditCourse}  dataCourse={course} index={index} closeModal={this.handlerEditModal.bind(this)} editCourse={this.editCourse.bind(this)}></EditCourse>
                                     :null} 
                                     <div className="item"> <p className="text">{course.name}</p></div> 
-                                    <div className="item"><p className="text">{course.days}</p></div> 
-                                    <div className="itemIcon"><img className="iconItem" src="edit.png" alt=""  onClick={()=>this.handlerEditModal(course.id)}></img> </div> 
-                                    <div className="itemIcon"><img className="iconItem" src="delete.png" onClick={()=>this.deleteCourse(index)} alt=""></img> </div> 
+                                    <div className="item"><p className="text">{course.days.join()}</p></div> 
+                                    {DataProvider.getUserLogget().isAdmin===true ? 
+                                        <div>
+                                            <div className="itemIcon"><img className="iconItem" src="edit.png" alt=""  onClick={()=>this.handlerEditModal(course.id)}></img> </div> 
+                                            <div className="itemIcon"><img className="iconItem" src="delete.png" onClick={()=>this.deleteCourse(index)} alt=""></img> </div>
+                                        </div> 
+                                    :
+                                    <div className="itemSwitch">
+                                        <Switch onChange={this.handleChange} courseId={course.id} Handlerchecked={this.state.checked} />
+                                    </div> 
+                                    } 
                                 </div> 
                             )}
                         )

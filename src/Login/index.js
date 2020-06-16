@@ -18,8 +18,6 @@ class Login extends Component {
 
       componentDidMount (){
           DataProvider.initializeUsers();
-          
-
       }
 
       login = ()=>{
