@@ -7,6 +7,8 @@ import DataProvider from "./../DataProvider";
 import CreateCourse from "./../Modals/CreateCourse";
 import EditCourse from "./../Modals/EditCourse";
 import Switch from "./../Switch";
+import uuid from 'react-uuid';
+
 
 class Home extends Component {
     constructor(props){
@@ -20,7 +22,6 @@ class Home extends Component {
       }
 
     componentDidMount (){
-        console.log(DataProvider.getCourses())
         DataProvider.initializeCourses();
         this.setState({
             courses: DataProvider.getCourses(),
@@ -43,7 +44,7 @@ class Home extends Component {
     }
     
     postCourse = (name,days) =>{    
-        DataProvider.CreateCourse([{id:this.state.courses.length+1,name:name,days:days}].concat(this.state.courses)) 
+        DataProvider.CreateCourse([{id:uuid(),name:name,days:days}].concat(this.state.courses)) 
         this.setState({
             courses: [{id:this.state.courses.length+1,name:name,days:days}].concat(this.state.courses)
         })
@@ -68,6 +69,9 @@ class Home extends Component {
         DataProvider.logOut()
         window.location.replace('/')
       }
+      goProfile = ()=>{
+        window.location.replace('/profile')
+      }
 
     render () {
         return (
@@ -80,7 +84,7 @@ class Home extends Component {
                     {DataProvider.getUserLogget().isAdmin===true ? 
                         <div className="buttonAdd" onClick={()=>this.handlerCreateModal()}>+</div>
                     :
-                        <div className="buttonProfile" onClick={()=>this.handlerCreateModal()}>Profile</div>
+                        <div className="buttonProfile" onClick={()=>this.goProfile()}>Profile</div>
                     }
                     <CreateCourse handlerModal={this.state.openCreateCourse} closeModal={this.handlerCreateModal.bind(this)} postCourse={this.postCourse.bind(this)}></CreateCourse> 
                     <div className="signOff" onClick={()=> this.comeBack()}>Sign Out</div> 
@@ -89,7 +93,7 @@ class Home extends Component {
                             <div className="TitleItem">Name</div> 
                             <div className="TitleItem">Days</div> 
                             {DataProvider.getUserLogget().isAdmin===true ? 
-                                <div>
+                                <div className="containerTitle">
                                     <div className="TitleItemIcon">Edit</div> 
                                     <div className="TitleItemIcon">Delete</div> 
                                 </div>
@@ -105,10 +109,11 @@ class Home extends Component {
                                     {this.state.idCourse===course.id?
                                         <EditCourse handlerModal={this.state.openEditCourse}  dataCourse={course} index={index} closeModal={this.handlerEditModal.bind(this)} editCourse={this.editCourse.bind(this)}></EditCourse>
                                     :null} 
+                                    <br></br>
                                     <div className="item"> <p className="text">{course.name}</p></div> 
-                                    <div className="item"><p className="text">{course.days.join()}</p></div> 
+                                    <div className="item"><p className="text">{course.days.join(", ")}</p></div> 
                                     {DataProvider.getUserLogget().isAdmin===true ? 
-                                        <div>
+                                        <div className="containerIcons">
                                             <div className="itemIcon"><img className="iconItem" src="edit.png" alt=""  onClick={()=>this.handlerEditModal(course.id)}></img> </div> 
                                             <div className="itemIcon"><img className="iconItem" src="delete.png" onClick={()=>this.deleteCourse(index)} alt=""></img> </div>
                                         </div> 

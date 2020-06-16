@@ -1,0 +1,29 @@
+.profileContainer{
+    .containerLogo{
+        text-align: center;
+        .logo{            
+            width: 30%;
+            margin-top: 20px;
+        }
+    }
+    .form-group{
+        text-align: left;
+    }
+    .buttonSave{
+        background: #d14545;
+        border-color: #d14545;
+        margin-top: 20px;
+    }
+    .backButton{
+        margin-right: 20px;
+        margin-top: 20px;
+    }
+    .register{
+        position: absolute;
+        color: #b53c3e;
+        font-weight: 500;
+        font-size: 15px;
+        cursor: pointer;
+        right: 20px;
+    }
+}

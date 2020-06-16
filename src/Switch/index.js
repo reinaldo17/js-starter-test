@@ -25,11 +25,23 @@ class Sswitch extends Component {
   
    
     handleChange() {
-      this.setState({
-           checked: !this.state.checked
-        });
+     
         if(this.state.checked){
-            alert("desSuscribir curso")
+            this.setState({
+                checked: false
+             });
+            var courseArray = DataProvider.getUserLogget().courses;
+            var auxArray = [];
+            for(let i=0; courseArray.length>i;i++){
+                if(courseArray[i]!==this.props.courseId){
+                    auxArray.push(courseArray[i])
+                }
+            }
+            courseArray=auxArray;
+            var userData = DataProvider.getUserLogget();
+            userData.courses= courseArray;
+            DataProvider.removeCourseUser(userData);
+
         }else{
             var auxDays = [];
             var auxID = null;
@@ -42,38 +54,50 @@ class Sswitch extends Component {
             }))
             var flag =false
             var flag2 =false
-            for(var x=0; DataProvider.getCourses().length>x; x++){          
-                if(flag){break}
-                if(flag2){break}
-                if(!flag && !flag2){
-                    for(var k=0; auxDays.length>k;k++){
-                            if(auxID!==DataProvider.getCourses()[x].id ){
-                                for(var j=0; DataProvider.getUserLogget().courses.length>j;j++){
-                                    if(DataProvider.getUserLogget().courses[j]===DataProvider.getCourses()[x].id && !flag){
-                                        for(var i=0; DataProvider.getCourses()[x].days.length>i;i++){
-                                            if(DataProvider.getCourses()[x].days[i]===auxDays[k]){
-                                                flag=true
-                                                alert("This course has the same schedule as another already selected")
-                                                this.setState({
-                                                    checked: false
-                                                 });
-                                            }else{
-                                                if(!flag && !flag2){
-                                                    flag2=true;
-                                                    if(flag===false){
-                                                        var newCourseArray = DataProvider.getUserLogget().courses.concat(this.props.courseId);
-                                                        var newUserData = DataProvider.getUserLogget();
-                                                        newUserData.courses= newCourseArray;
-                                                        DataProvider.addCourseUser(newUserData)
-                                                    }   
-                                                }
+            if(DataProvider.getUserLogget().courses.length>0){
+                for(var x=0; DataProvider.getCourses().length>x; x++){          
+                    if(!flag && !flag2){
+                        for(var k=0; auxDays.length>k;k++){
+                                if(auxID!==DataProvider.getCourses()[x].id ){
+                                    for(var j=0; DataProvider.getUserLogget().courses.length>j;j++){
+                                        if(DataProvider.getUserLogget().courses[j]===DataProvider.getCourses()[x].id){
+                                            for(var i=0; DataProvider.getCourses()[x].days.length>i;i++){
+                                                if(DataProvider.getCourses()[x].days[i]===auxDays[k]){
+                                                    alert("This course has the same schedule as another already selected")
+                                                    this.setState({
+                                                        checked: false
+                                                    });
+                                                        flag=true                                                  
+                                                }                                               
                                             }
                                         }
-                                    }
-                                }      
-                            }
-                        }  
-                    }
+                                    }                                    
+                                        
+                                }
+                            }  
+                        }
+                }
+                if(!flag && !flag2){
+                    flag2=true;
+                       var newCourseArray = DataProvider.getUserLogget().courses.concat(this.props.courseId);
+                        var newUserData = DataProvider.getUserLogget();
+                        newUserData.courses= newCourseArray;
+                        DataProvider.addCourseUser(newUserData)
+                        this.setState({
+                            checked: true
+                         }); 
+                       
+                } 
+            }else{
+                if(flag===false){
+                    var newCourseArray2 = DataProvider.getUserLogget().courses.concat(this.props.courseId);
+                    var newUserData2 = DataProvider.getUserLogget();
+                    newUserData2.courses= newCourseArray2;
+                    DataProvider.addCourseUser(newUserData2)
+                    this.setState({
+                        checked: true
+                     }); 
+                }
             }
         }
     }
@@ -83,7 +107,7 @@ class Sswitch extends Component {
       return (
           <div>
           <label>
-              <Switch onColor="#d14545" onChange={this.handleChange} checked={this.state.checked} uncheckedIcon={false} height={22} width={48} />
+              <Switch onColor="#d14545" onChange={this.handleChange}  checked={this.state.checked} uncheckedIcon={false} height={22} width={48} />
           </label>
         </div>
       );

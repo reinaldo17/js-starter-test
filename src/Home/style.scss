@@ -40,6 +40,11 @@
         font-weight: 500;
         font-size: 15px;
         cursor: pointer;
+        @media screen and (max-width: 425px) {
+            top: 10px;
+            right: 20px;
+        }
+
     }
     .ContainerCourses{
         margin-top: 25px;
@@ -61,6 +66,17 @@
         display: inline-block;
         width: 15%;
         margin-top: 5px;
+        @media screen and (max-width: 425px) {
+            margin-left: -5px;
+
+        }
+    }
+    .containerTitle{
+        display: inline;
+
+    }
+    .containerIcons{
+        display: inline;
     }
     .TitleReserved{
         display: inline-block;
@@ -73,11 +89,15 @@
             display: inline-block;
             width: 35%;
             margin-top: 5px;
-            font-size: 16px;
+            font-size: 15px;
             text-overflow: ellipsis;
             white-space:nowrap;
             overflow:hidden;
-
+            @media screen and (max-width: 425px) {
+                font-size: 11px;
+                white-space: pre-wrap;
+                overflow:hidden;
+            }
 
         }
         .itemIcon{
@@ -89,12 +109,17 @@
         }
         .iconItem{
             width: 40px;
-            margin-bottom: -10px;
+            margin-bottom: 42px;
+            @media screen and (max-width: 425px) {
+                width: 35px;
+
+            }
         }
         .itemSwitch{
             display: inline-block;
             width: 30%;
             margin-top: 15px;
         }
+        
     }       
 }

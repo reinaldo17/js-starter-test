@@ -4,6 +4,7 @@ import './App.css';
 import Home from "./Home"
 import Login from "./Login"
 import Register from "./Register"
+import Profile from "./Profile"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -25,6 +26,10 @@ class App extends Component {
               path="/register"
               exact
               component={Register} />
+              <Route
+              path="/profile"
+              exact
+              component={Profile} />
           </Switch>
         </div>
       </BrowserRouter>

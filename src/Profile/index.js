@@ -6,10 +6,9 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import DataProvider from "./../DataProvider";
-import uuid from 'react-uuid';
 
 
-class Register extends Component {
+class Profile extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -20,27 +19,34 @@ class Register extends Component {
           if(this.refs.nameUser.value==="" ||this.refs.emailUser.value==="" || this.refs.passWordUser.value==="" || this.refs.ageUser.value===""){
               alert("All fields are REQUIRED");
           }else{
-            let aux= DataProvider.getUsers()
-            DataProvider.CreateUser([{name:this.refs.nameUser.value,
+            DataProvider.userLoggedIn({name:this.refs.nameUser.value,
                                       mail:this.refs.emailUser.value,
                                       age:this.refs.ageUser.value,
                                       pass:this.refs.passWordUser.value,   
                                       isAdmin:false,
-                                      courses:[],
-                                      id:uuid(),
-                                      }].concat(aux)) 
-
+                                      courses:DataProvider.getUserLogget().courses,
+                                      id:DataProvider.getUserLogget().id,
+                                      }) 
+            var auxArrayUser= DataProvider.getUsers()
+            var auxUserLogued= DataProvider.getUserLogget()
+            for(let i=0;auxArrayUser.length>i;i++){
+                if(auxArrayUser[i].id===auxUserLogued.id){
+                    auxArrayUser[i]= auxUserLogued
+                }
+            }
+            DataProvider.updateUser(auxArrayUser);
+            alert("Your data has been Updated");
+            window.location.replace('/home')
           }
-          alert("Registered user successfully");
-          window.location.replace('/')
+
       }
       comeBack = ()=>{
-        window.location.replace('/')
+        window.location.replace('/home')
       }
 
     render () {
         return (
-                <Container className="registerContainer">
+                <Container className="profileContainer">
                 <Row>
                   <Col sm={12} xs={12} md={12}>
                   <div className="containerLogo">
@@ -49,15 +55,15 @@ class Register extends Component {
                   <Form>
                   <Form.Group controlId="exampleForm.ControlInput4">
                     <Form.Label>Name</Form.Label>
-                  <Form.Control type="email" placeholder="" ref="nameUser" required/>
+                  <Form.Control type="email" placeholder="" ref="nameUser" defaultValue={DataProvider.getUserLogget().name} required/>
                   </Form.Group>
                   <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="" ref="emailUser" required/>
+                    <Form.Control type="email" placeholder="" ref="emailUser" defaultValue={DataProvider.getUserLogget().mail} required/>
                   </Form.Group>
                   <Form.Group controlId="exampleForm.ControlInput3">
                     <Form.Label>Age</Form.Label>
-                    <Form.Control type="number" placeholder="" ref="ageUser" required/>
+                    <Form.Control type="number" placeholder="" ref="ageUser" required defaultValue={DataProvider.getUserLogget().age}/>
                   </Form.Group>
                   <Form.Group controlId="exampleForm.ControlInput2">
                     <Form.Label>Password</Form.Label>
@@ -78,4 +84,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default Profile;
