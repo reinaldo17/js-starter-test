@@ -1,4 +1,10 @@
 export function Students() {
+    /**
+     * Para el mejor manejo de datos fueron agregados varios parametros, tales como isAdmin, pass,id
+     * isAdmin es un booleano que le acredita al usuario permisos para crear, editar y eliminar cursos
+     * id para distinguir cada usuario por un parametro unico
+     * pass es una clave para poder acceder al sistema
+     */
     let items = [
         {
             'name': 'Julio Rodriguez', 'mail': 'julio@emailna.co', 'age': '30','isAdmin': false,
@@ -44,5 +50,5 @@ export function Students() {
 
     Object.defineProperty(this, 'items', {'get': () => items});
 }
-//esta linea fue agregada porque no estaba siendo exportada a lista de estudiantes
+//esta linea fue agregada porque no estaba siendo exportada la lista de estudiantes
 export default Students;

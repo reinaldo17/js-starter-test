@@ -3,7 +3,7 @@ import Users from "./../bd/students"
 
 const DataProvider = {
 
-//Provider de cursos:
+//Courses provider:
 
     //Initialize the courses using the data stored in the database
     initializeCourses : () =>{
@@ -32,7 +32,7 @@ const DataProvider = {
         localStorage.setItem('Courses', JSON.stringify(data))
     },
 
-//Provider de Users:
+//Users provider:
 
     //Initialize the list of Students using the data stored in the database
     initializeUsers : () =>{

@@ -12,6 +12,9 @@ class Sswitch extends Component {
       this.handleChange = this.handleChange.bind(this);
       
     }
+    /**
+     * initialize the swicth state
+     */
     componentDidMount(){
         DataProvider.getUserLogget().courses.map(((course,index) =>{
             if(course===this.props.courseId){
@@ -22,10 +25,11 @@ class Sswitch extends Component {
         }))
       
     }
-  
-   
-    handleChange() {
-     
+  /**
+   * handles the saving and rendering of the swicth,
+   * also handles the logic and validation of the course subscription
+   */
+    handleChange() {   
         if(this.state.checked){
             this.setState({
                 checked: false
@@ -101,8 +105,7 @@ class Sswitch extends Component {
             }
         }
     }
-
-   
+ 
     render() {
       return (
           <div>

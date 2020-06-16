@@ -15,11 +15,15 @@ class Login extends Component {
             
         }
       }
-
+    /**
+     * initialize the user list
+     */
       componentDidMount (){
           DataProvider.initializeUsers();
       }
-
+    /**
+     * Check the data entered with registered users
+    */
       login = ()=>{
           if(this.refs.emailUser.value==="" || this.refs.passWordUser.value===""){
               alert("Enter Email and Password")
@@ -37,6 +41,9 @@ class Login extends Component {
             })
           }
       }
+      /**
+       * I directed to the registration page
+       */
       openRegister = () =>{
         window.location.replace('/register')
       }

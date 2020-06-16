@@ -10,6 +10,9 @@ class EditCourse extends Component {
           daysArray: [] ,   
         }
       }
+      /**
+       * fill the course fields to edit
+       */
       componentDidMount(){
           for(let i=0;i<this.props.dataCourse.days.length;i++){
             if(this.props.dataCourse.days[i]==="Monday"){
@@ -29,9 +32,10 @@ class EditCourse extends Component {
             }
           } 
       }
-
+      /**
+       * modifies the state and sends the data to its parent component
+       */
     saveCourse = ()=>{
- 
       if(this.refs.Monday.checked){
         this.setState({
           daysArray: this.state.daysArray.push("Monday")

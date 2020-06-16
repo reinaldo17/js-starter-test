@@ -20,14 +20,18 @@ class Home extends Component {
           idCourse: null,
         }
       }
-
+    /**
+     *initialize the list of courses and save it in a state to be able to render
+    */
     componentDidMount (){
         DataProvider.initializeCourses();
         this.setState({
             courses: DataProvider.getCourses(),
         })
     }
-
+    /**
+     * remove an element from the state and update the localstorage
+     */
     deleteCourse = (index) =>{
         if (window.confirm('Are you sure to delete this course?')){
             this.setState({
@@ -36,13 +40,19 @@ class Home extends Component {
             DataProvider.deleteCourse(this.state.courses);
         }
     }
-
+    /**
+     * handles the state that opens and closes the create course modal
+     */
     handlerCreateModal = () =>{
         this.setState({
             openCreateCourse: !this.state.openCreateCourse
         })
     }
-    
+/**
+ * add a course to the state to reender it and update the localstorage
+ * @param {*} name: name of the new course
+ * @param {*} days: days of the new course
+ */
     postCourse = (name,days) =>{    
         DataProvider.CreateCourse([{id:uuid(),name:name,days:days}].concat(this.state.courses)) 
         this.setState({
@@ -50,13 +60,23 @@ class Home extends Component {
         })
         
     }
-
+/**
+ * handles  that opens and closes the edit course modal
+ * @param {*} courseId: boolean that handles the state 
+ */
     handlerEditModal = (courseId) =>{
         this.setState({
             openEditCourse: !this.state.openEditCourse,
             idCourse: courseId,
         })
     }
+    /**
+     * edit a state element and update the localstorage
+     * @param {*} index:index of the element to edit
+     * @param {*} id: id of the element to edit
+     * @param {*} name: new item name
+     * @param {*} days new item days
+     */
     editCourse = (index,id, name, days) =>{  
         var coursesEdit = this.state.courses;
         var removed = coursesEdit.splice(index,1,{id:id,name:name,days:days});
@@ -65,10 +85,16 @@ class Home extends Component {
                courses: coursesEdit
            })
     }
+    /**
+     * delete logged user data and redirect to login page
+     */
     comeBack = ()=>{
         DataProvider.logOut()
         window.location.replace('/')
       }
+      /**
+       * redirect to profile page
+       */
       goProfile = ()=>{
         window.location.replace('/profile')
       }

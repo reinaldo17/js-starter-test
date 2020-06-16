@@ -15,7 +15,9 @@ class Register extends Component {
         this.state={
       }
     }
-
+      /**
+      * receives the entered data and register the user in the localstorage
+      */
       register = ()=>{
           if(this.refs.nameUser.value==="" ||this.refs.emailUser.value==="" || this.refs.passWordUser.value==="" || this.refs.ageUser.value===""){
               alert("All fields are REQUIRED");
@@ -33,7 +35,10 @@ class Register extends Component {
           }
           alert("Registered user successfully");
           window.location.replace('/')
-      }
+      }     
+      /**
+       * redirect to the home page
+       */
       comeBack = ()=>{
         window.location.replace('/')
       }

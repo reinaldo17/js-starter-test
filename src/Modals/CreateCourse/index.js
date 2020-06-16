@@ -10,8 +10,10 @@ class CreateCourse extends Component {
           daysArray: [] ,   
         }
       }
-    saveCourse = ()=>{
-      
+/**
+ * saves the created course data and sends it to its parent component
+ */
+    saveCourse = ()=>{ 
       if(this.refs.Monday.checked){
         this.setState({
           daysArray: this.state.daysArray.push("Monday")

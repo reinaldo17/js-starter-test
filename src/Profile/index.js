@@ -14,19 +14,21 @@ class Profile extends Component {
         this.state={
       }
     }
-
+      /**
+      * receives the entered data and update the user in the localstorage
+      */
       register = ()=>{
           if(this.refs.nameUser.value==="" ||this.refs.emailUser.value==="" || this.refs.passWordUser.value==="" || this.refs.ageUser.value===""){
               alert("All fields are REQUIRED");
           }else{
             DataProvider.userLoggedIn({name:this.refs.nameUser.value,
-                                      mail:this.refs.emailUser.value,
-                                      age:this.refs.ageUser.value,
-                                      pass:this.refs.passWordUser.value,   
-                                      isAdmin:false,
-                                      courses:DataProvider.getUserLogget().courses,
-                                      id:DataProvider.getUserLogget().id,
-                                      }) 
+              mail:this.refs.emailUser.value,
+              age:this.refs.ageUser.value,
+              pass:this.refs.passWordUser.value,   
+              isAdmin:false,
+              courses:DataProvider.getUserLogget().courses,
+              id:DataProvider.getUserLogget().id,
+            }) 
             var auxArrayUser= DataProvider.getUsers()
             var auxUserLogued= DataProvider.getUserLogget()
             for(let i=0;auxArrayUser.length>i;i++){
@@ -40,6 +42,10 @@ class Profile extends Component {
           }
 
       }
+
+      /**
+       * redirect to the home page
+       */
       comeBack = ()=>{
         window.location.replace('/home')
       }
@@ -73,7 +79,7 @@ class Profile extends Component {
                     Back
                   </Button>
                   <Button variant="primary" className="buttonSave" onClick={()=> this.register()}>
-                    Register
+                    Save
                   </Button>
                 </Form> 
                   </Col>
