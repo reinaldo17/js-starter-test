@@ -40,39 +40,41 @@ class Sswitch extends Component {
                     auxID = course.id
                 }
             }))
-
-
-            DataProvider.getCourses().map(((course,index) =>{
-                var flag =false
-                auxDays.map(day=>{
-                    if(!flag){
-                            if(auxID!==course.id ){
-                                DataProvider.getUserLogget().courses.map(courseSelected=>{
-                                    if(courseSelected===course.id && !flag){
-                                        for(var i=0; course.days.length>i;i++){
-                                            alert(i)
-                                            if(course.days[i]===day){
+            var flag =false
+            var flag2 =false
+            for(var x=0; DataProvider.getCourses().length>x; x++){          
+                if(flag){break}
+                if(flag2){break}
+                if(!flag && !flag2){
+                    for(var k=0; auxDays.length>k;k++){
+                            if(auxID!==DataProvider.getCourses()[x].id ){
+                                for(var j=0; DataProvider.getUserLogget().courses.length>j;j++){
+                                    if(DataProvider.getUserLogget().courses[j]===DataProvider.getCourses()[x].id && !flag){
+                                        for(var i=0; DataProvider.getCourses()[x].days.length>i;i++){
+                                            if(DataProvider.getCourses()[x].days[i]===auxDays[k]){
+                                                flag=true
                                                 alert("This course has the same schedule as another already selected")
                                                 this.setState({
                                                     checked: false
                                                  });
-                                                 flag=true
                                             }else{
-                                                if(!flag){
-                                                    var newCourseArray = DataProvider.getUserLogget().courses.concat(this.props.courseId);
-                                                    var newUserData = DataProvider.getUserLogget();
-                                                    newUserData.courses= newCourseArray;
-                                                    console.log(newUserData)
+                                                if(!flag && !flag2){
+                                                    flag2=true;
+                                                    if(flag===false){
+                                                        var newCourseArray = DataProvider.getUserLogget().courses.concat(this.props.courseId);
+                                                        var newUserData = DataProvider.getUserLogget();
+                                                        newUserData.courses= newCourseArray;
+                                                        DataProvider.addCourseUser(newUserData)
+                                                    }   
                                                 }
                                             }
                                         }
                                     }
-                                })
-       
+                                }      
                             }
                         }  
-                    })
-            }))
+                    }
+            }
         }
     }
 
