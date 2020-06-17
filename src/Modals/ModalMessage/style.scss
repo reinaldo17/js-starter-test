@@ -1,0 +1,27 @@
+.messageModal{
+    .footer{
+        justify-content: center !important;
+        border-top: none;
+    }
+    .buttonSave{
+        background: #d14545;
+        border-color: #d14545;
+    }
+    .dayLabel{
+        width: 100%;
+    }
+    .modal-header{
+        display: block;
+        text-align: center;
+        border-bottom: none;
+    }
+    .modal-content {
+        width: 75%;
+        margin-left: 12%;
+        border-color: #d14545;
+
+    }
+    .modal-title{
+        font-size: 20px;
+    }
+}

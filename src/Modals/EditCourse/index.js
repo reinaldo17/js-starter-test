@@ -3,11 +3,15 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './style.scss';
+import Message from "./../ModalMessage";
+
 class EditCourse extends Component {
     constructor(props){
         super(props);
         this.state={
-          daysArray: [] ,   
+          daysArray: [] , 
+          openMessage: false,
+          message: "",   
         }
       }
       /**
@@ -62,10 +66,12 @@ class EditCourse extends Component {
         })
       }
       if(this.refs.nameCourse.value==="" || this.state.daysArray.length===0){
-        alert("Enter course name and at least select a day")
         this.setState({
+          openMessage: true,
+          message: "Enter course name and at least select a day",
           daysArray:[],
-        })
+        }) 
+
       }else{
         this.props.editCourse(this.props.index, this.props.dataCourse.id, this.refs.nameCourse.value,this.state.daysArray);
         this.setState({
@@ -74,12 +80,21 @@ class EditCourse extends Component {
         this.props.closeModal()
       }
     }
+     /**
+       * handles the state that closes and opens the modal
+       */
+      handlerModal = () =>{
+        this.setState({
+          openMessage: !this.state.openMessage
+        })
+      }
       
       render () {
         return (
               <Modal className="editCourse" show={this.props.handlerModal} onHide={()=> this.props.closeModal()}>
+                <Message handlerModal={this.state.openMessage} message={this.state.message} closeModal={this.handlerModal.bind(this)}></Message>
               <Modal.Header closeButton>
-                <Modal.Title>New Course</Modal.Title>
+                <Modal.Title>Edit Course</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <Form>

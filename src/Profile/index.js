@@ -6,12 +6,16 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import DataProvider from "./../DataProvider";
+import Message from "./../Modals/ModalMessage";
+
 
 
 class Profile extends Component {
     constructor(props){
         super(props);
         this.state={
+          openMessage: false,
+          message: "",
       }
     }
       /**
@@ -19,7 +23,10 @@ class Profile extends Component {
       */
       register = ()=>{
           if(this.refs.nameUser.value==="" ||this.refs.emailUser.value==="" || this.refs.passWordUser.value==="" || this.refs.ageUser.value===""){
-              alert("All fields are REQUIRED");
+            this.setState({
+              openMessage: true,
+              message: "All fields are REQUIRED",
+            }) 
           }else{
             DataProvider.userLoggedIn({name:this.refs.nameUser.value,
               mail:this.refs.emailUser.value,
@@ -37,8 +44,16 @@ class Profile extends Component {
                 }
             }
             DataProvider.updateUser(auxArrayUser);
-            alert("Your data has been Updated");
-            window.location.replace('/home')
+            this.setState({
+              openMessage: true,
+              message: "Your data has been Updated",
+            })
+            setTimeout(function () {
+              window.location.replace('/home')
+            }, 1000);
+            
+            
+            
           }
 
       }
@@ -49,12 +64,21 @@ class Profile extends Component {
       comeBack = ()=>{
         window.location.replace('/home')
       }
+      /**
+       * handles the state that closes and opens the modal
+       */
+      handlerModal = () =>{
+        this.setState({
+          openMessage: !this.state.openMessage
+        })
+      }
 
     render () {
         return (
                 <Container className="profileContainer">
                 <Row>
                   <Col sm={12} xs={12} md={12}>
+                    <Message handlerModal={this.state.openMessage} message={this.state.message} closeModal={this.handlerModal.bind(this)}></Message>
                   <div className="containerLogo">
                     <img className="logo" src="jida.png" alt=""/>
                   </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Switch from "react-switch";
 import DataProvider from "./../DataProvider";
+import Message from "./../Modals/ModalMessage";
 
 class Sswitch extends Component {
 
@@ -8,6 +9,8 @@ class Sswitch extends Component {
       super();
       this.state = { 
           checked: false,
+          openMessage: false,
+          message: "",
       };
       this.handleChange = this.handleChange.bind(this);
       
@@ -67,9 +70,10 @@ class Sswitch extends Component {
                                         if(DataProvider.getUserLogget().courses[j]===DataProvider.getCourses()[x].id){
                                             for(var i=0; DataProvider.getCourses()[x].days.length>i;i++){
                                                 if(DataProvider.getCourses()[x].days[i]===auxDays[k]){
-                                                    alert("This course has the same schedule as another already selected")
                                                     this.setState({
-                                                        checked: false
+                                                        checked: false,
+                                                        openMessage: true,
+                                                        message: "This course has the same schedule as another already selected",
                                                     });
                                                         flag=true                                                  
                                                 }                                               
@@ -105,10 +109,19 @@ class Sswitch extends Component {
             }
         }
     }
+       /**
+       * handles the state that closes and opens the modal
+       */
+      handlerModal = () =>{
+        this.setState({
+          openMessage: !this.state.openMessage
+        })
+      }
  
     render() {
       return (
           <div>
+            <Message handlerModal={this.state.openMessage} message={this.state.message} closeModal={this.handlerModal.bind(this)}></Message>
           <label>
               <Switch onColor="#d14545" onChange={this.handleChange}  checked={this.state.checked} uncheckedIcon={false} height={22} width={48} />
           </label>

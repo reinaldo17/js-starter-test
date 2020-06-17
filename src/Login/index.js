@@ -6,13 +6,14 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import DataProvider from "./../DataProvider";
-
+import Message from "./../Modals/ModalMessage";
 
 class Login extends Component {
     constructor(props){
         super(props);
         this.state={
-            
+          openMessage: false,
+          message: "",
         }
       }
     /**
@@ -26,7 +27,10 @@ class Login extends Component {
     */
       login = ()=>{
           if(this.refs.emailUser.value==="" || this.refs.passWordUser.value===""){
-              alert("Enter Email and Password")
+            this.setState({
+              openMessage: true,
+              message: "Enter Email and Password",
+            })
           }else{
               let noLog= true;
             DataProvider.getUsers().map((user,index) =>{
@@ -36,7 +40,10 @@ class Login extends Component {
                     window.location.replace('/home')
                 }
                 if(index+1===DataProvider.getUsers().length && noLog){
-                    alert("Incorrect or Unregistered User")                    
+                  this.setState({
+                    openMessage: true,
+                    message: "Incorrect or Unregistered User",
+                  })                    
                 }
             })
           }
@@ -47,12 +54,21 @@ class Login extends Component {
       openRegister = () =>{
         window.location.replace('/register')
       }
+      /**
+       * handles the state that closes and opens the modal
+       */
+      handlerModal = () =>{
+        this.setState({
+          openMessage: !this.state.openMessage
+        })
+      }
 
     render () {
         return (
                 <Container className="LoginContainer">
                 <Row>
                   <Col sm={12} xs={12} md={12}>
+                  <Message handlerModal={this.state.openMessage} message={this.state.message} closeModal={this.handlerModal.bind(this)}></Message>
                   <div className="containerLogo">
                     <img className="logo" src="jida.png" alt=""/>
                   </div>
